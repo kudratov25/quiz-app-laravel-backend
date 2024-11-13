@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\SocialLogin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 
@@ -41,7 +42,7 @@ class SocialAuthController extends Controller
                     ]);
                 }
 
-                $token = $existingUser->createToken('Quizz App')->plainTextToken;
+                $token = $existingUser->createToken('Quizz app')->plainTextToken;
 
                 return response()->json([
                     'user' => $existingUser,
@@ -52,7 +53,7 @@ class SocialAuthController extends Controller
                     'name' => $user->getName(),
                     'email' => $user->getEmail(),
                     'avatar' => $user->getAvatar(),
-                    'password' => Str::password()
+                    'password' => Hash::make(Str::random(32))
                 ]);
 
                 SocialLogin::create([
@@ -61,7 +62,7 @@ class SocialAuthController extends Controller
                     'provider_id' => $user->getId(),
                 ]);
 
-                $token = $newUser->createToken('YourAppName')->plainTextToken;
+                $token = $newUser->createToken('Quizz app')->plainTextToken;
 
                 return response()->json([
                     'user' => $newUser,
