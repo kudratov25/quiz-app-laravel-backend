@@ -9,6 +9,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('login', [AuthController::class, 'login']);
-Route::get('login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('login.provider');
-Route::get('login/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback']);
+Route::middleware('guest')->group(function () {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('login.provider');
+    Route::get('/login/{provider}/callback', [SocialAuthController::class, 'handleProviderCallback']);
+});

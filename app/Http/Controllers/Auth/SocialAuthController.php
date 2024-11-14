@@ -7,6 +7,7 @@ use App\Models\SocialLogin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 
@@ -22,8 +23,9 @@ class SocialAuthController extends Controller
             return response()->json(['error' => 'Provider not supported'], 400);
         }
     }
-    public function handleProviderCallback(Request $request, $provider)
+    public function handleProviderCallback($provider)
     {
+        Log::info($provider);
         try {
             $user = Socialite::driver($provider)->stateless()->user();
 
@@ -45,8 +47,8 @@ class SocialAuthController extends Controller
                 $token = $existingUser->createToken('Quizz app')->plainTextToken;
 
                 return response()->json([
+                    'token' => $token,
                     'user' => $existingUser,
-                    'token' => $token
                 ]);
             } else {
                 $newUser = User::create([
@@ -65,8 +67,8 @@ class SocialAuthController extends Controller
                 $token = $newUser->createToken('Quizz app')->plainTextToken;
 
                 return response()->json([
+                    'token' => $token,
                     'user' => $newUser,
-                    'token' => $token
                 ]);
             }
         } catch (\Exception $e) {
