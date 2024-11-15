@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function () {
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('quizzes', QuizController::class);
-    Route::post('quizzes/{quizId}/start', [QuizController::class, 'playQuiz']);
+    Route::get('quizzes/{quizId}/start', [QuizController::class, 'playQuiz']);
     Route::post('quizzes/{quizResultId}/submit-answer/{questionId}', [QuizController::class, 'submitAnswer']);
     Route::post('/media/upload', [MediaController::class, 'upload']);
 });

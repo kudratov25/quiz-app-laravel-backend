@@ -15,4 +15,8 @@ class QuizResult extends Model
         'total_questions',
         'start_time'
     ];
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }

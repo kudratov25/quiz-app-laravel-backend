@@ -18,4 +18,12 @@ class Quiz extends Model
         'time_limit',
         'deadline'
     ];
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+    public function quizResults()
+    {
+        return $this->hasMany(QuizResult::class);
+    }
 }

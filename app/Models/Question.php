@@ -14,6 +14,10 @@ class Question extends Model
         'question_text',
         'image_url'
     ];
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
     public function options()
     {
         return $this->hasMany(Option::class);
