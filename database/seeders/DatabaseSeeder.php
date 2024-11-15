@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
+use function Pest\Laravel\call;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -20,6 +22,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'qudratov25@mail.ru',
             'password' => Hash::make('password')
+        ]);
+        $this->call([
+            CategorySeeder::class,
+            QuizSeeder::class
         ]);
     }
 }
