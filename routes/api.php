@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::middleware('guest')->group(function () {
+Route::prefix('v1')->middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
     Route::post('/register', [AuthController::class, 'register']);
     Route::get('/login/{provider}', [SocialAuthController::class, 'redirectToProvider'])->name('login.provider');

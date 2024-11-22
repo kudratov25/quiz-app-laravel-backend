@@ -17,7 +17,7 @@ class QuizController extends Controller
     public function index()
     {
         $quizzes = Quiz::where('is_public', true)
-            ->orWhere('user_id', auth()->id)
+            ->orWhere('user_id', auth()->user()->id)
             ->get();
 
         return response()->json($quizzes);
