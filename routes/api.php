@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizPlayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,12 @@ Route::prefix('v1')->middleware('guest')->group(function () {
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('quizzes', QuizController::class);
-    Route::get('quizzes/{quizId}/start', [QuizController::class, 'playQuiz']);
-    Route::post('quizzes/{quizResultId}/submit-answer/{questionId}', [QuizController::class, 'submitAnswer']);
+    Route::get('quizzes/{quizId}', [QuizPlayController::class, 'getQuiz']);
+    Route::get('quizzes/{quizId}/start', [QuizPlayController::class, 'startQuiz']);
+    Route::post('quizzes/{quizResultId}/submit-answer/{questionId}', [QuizPlayController::class, 'submitAnswer']);
     Route::post('/media/upload', [MediaController::class, 'upload']);
+});
+
+Route::prefix('v1')->middleware('role:admin')->group(function (){
+    Route::get('index',[\App\Http\Controllers\Admin\AdminController::class,'index']);
 });

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('score')->default(0);
             $table->integer('total_questions');
             $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
+            $table->boolean('is_finished')->default(0);
             $table->timestamps();
         });
     }

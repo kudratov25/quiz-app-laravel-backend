@@ -23,9 +23,12 @@ class DatabaseSeeder extends Seeder
             'email' => 'qudratov25@mail.ru',
             'password' => Hash::make('password')
         ]);
+
         $this->call([
             CategorySeeder::class,
-            QuizSeeder::class
+            QuizSeeder::class,
+            RoleSeeder::class,
+            AdminSeeder::class
         ]);
     }
 }

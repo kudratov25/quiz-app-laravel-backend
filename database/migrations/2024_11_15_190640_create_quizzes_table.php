@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('is_public')->default(false);
             $table->decimal('price', 8, 2)->nullable();
             $table->integer('time_limit')->nullable();
-            $table->integer('deadline')->nullable();
+            $table->string('deadline')->nullable();
             $table->timestamps();
         });
     }
