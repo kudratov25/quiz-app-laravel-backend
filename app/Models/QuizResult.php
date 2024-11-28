@@ -13,10 +13,16 @@ class QuizResult extends Model
         'quiz_id',
         'score',
         'total_questions',
-        'start_time'
+        'start_time',
+        'end_time',
+        'is_finished'
     ];
     public function quiz()
     {
         return $this->belongsTo(Quiz::class);
+    }
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
     }
 }
