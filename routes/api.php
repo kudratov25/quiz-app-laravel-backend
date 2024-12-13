@@ -21,6 +21,8 @@ Route::prefix('v1')->middleware('guest')->group(function () {
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::apiResource('quizzes', QuizController::class);
+    Route::apiResource('questions', \App\Http\Controllers\QuestionController::class);
+    Route::apiResource('options', \App\Http\Controllers\OptionController::class);
     Route::get('quizzes/{quizId}', [QuizPlayController::class, 'getQuiz']);
     Route::get('quizzes/{quizId}/start', [QuizPlayController::class, 'startQuiz']);
     Route::post('quizzes/{quizResultId}/submit-answer/{questionId}', [QuizPlayController::class, 'submitAnswer']);
@@ -28,5 +30,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
 });
 
 Route::prefix('v1')->middleware('role:admin')->group(function (){
-    Route::get('index',[\App\Http\Controllers\Admin\AdminController::class,'index']);
+    Route::get('admin_quizzes',[\App\Http\Controllers\Admin\AdminController::class,'index']);
 });
